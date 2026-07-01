@@ -56,7 +56,7 @@ int main() {
    
     // Organizar a matriz
 
-    int x;
+    int alvo;
     int linha = n;
     int coluna = m;
     int tamanho = linha * coluna;
@@ -88,30 +88,51 @@ int main() {
             index++;
         }
     }
+
     cout << endl;
-    cout << "MATRIZ COM VALORES ORGANIZADOS: " << endl;
+    cout << "MATRIZ COM VALORES ORGANIZADOS: ";
+    cout << endl;
     for(i = 0; i < linha; i++) {
         for(j = 0; j < coluna; j++) {
             cout << arr[i][j] << "   ";
         }
         cout << endl;
     }
+
     cout << endl;
-    cout << "Preparada para busca binária" << endl;
-/*
-bool encontrado;
-encontrado = false;
-cout << "Qual valor você quer buscar na matriz: ";
-cin >> x;
+    cout << "Preparada para busca binária";
+    cout << endl;
+    cout << "Qual valor você quer buscar na matriz? ";
+    cin >> alvo;
 
-int inicio = 0;
-int fim = linha * coluna - 1;
-int meio = inicio + (fim - inicio) / 2;
+    //Informando variáveis:
+    int inicio = 0;
+    int fim = linha * coluna - 1;
+    int linhaAlvo = -1;
+    int colunaAlvo = -1;
 
-while(inicio <= fim) {
+    while(inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        
+        //Mapeamento 1D para 2D
+        int valorMeio = arr[meio / coluna][meio % coluna];
 
-} 
-*/
+        if(valorMeio == alvo) {
+            linhaAlvo = meio / coluna;
+            colunaAlvo = meio % coluna;
+        }
+        if(valorMeio < alvo) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+
+    if (linhaAlvo != -1) {
+        cout << "Elemento encontrado na posição [" << linhaAlvo + 1 << "][" << colunaAlvo + 1 << "]" << endl;
+    } else {
+        cout << "Elemento não encontrado." << endl;
+    }
 
     return 0;
 }
